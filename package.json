@@ -1,19 +1,20 @@
 {
-  "name": "mongo-server",
+  "name": "backend-draft-2",
   "version": "1.0.0",
-  "description": "Challenge 5 - Coderhouse Backend Course",
+  "description": "Second Draft of the Backend Course Final Project - Coderhouse",
   "main": "app.js",
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/app.js"
+    "dev": "nodemon src/app.js",
+    "build-css": "tailwindcss -i ./src/public/css/styles.css -o ./src/public/css/dist/styles.css --watch"
   },
   "author": "Mariano Chouhy",
   "license": "MIT",
   "devDependencies": {
     "autoprefixer": "^10.4.18",
     "nodemon": "^3.1.0",
-    "postcss": "^8.4.35",
+    "postcss": "^8.4.36",
     "tailwindcss": "^3.4.1"
   },
   "dependencies": {
