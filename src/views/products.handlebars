@@ -1,0 +1,23 @@
+<h1 class="bg-red-50 flex justify-center items-center p-6 mb-6">Products</h1>
+
+<div class="grid grid-cols-2 gap-4 mx-4">
+  {{#each products}}
+    <div
+      class="p-6 flex flex-col justify-start gap-2 border border-solid border-slate-950 rounded-[32px]"
+    >
+      <h2>{{title}}</h2>
+      <p>{{description}}</p>
+      <p>$ {{price}}</p>
+      <button>Add to Cart</button>
+    </div>
+  {{/each}}
+</div>
+
+{{#if hasPreviousPage}}
+  <a href="/products?page={{previousPage}}"> Anterior </a>
+{{/if}}
+{{#if hasNextPage}}
+  <a href="/products?page={{nextPage}}"> Siguiente </a>
+{{/if}}
+
+<p>Pagina {{currentPage}} de {{totalPages}} </p>
