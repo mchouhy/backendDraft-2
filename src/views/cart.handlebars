@@ -1,0 +1,14 @@
+<div
+  class="absolute top-0 z-[-2] h-screen w-screen bg-gray-700 bg-[radial-gradient(100%_50%_at_50%_0%,rgba(0,163,255,0.13)_0,rgba(0,163,255,0)_50%,rgba(0,163,255,0)_100%)]"
+>
+</div>
+<h1
+  class="flex justify-center items-center text-5xl text-white font-extrabold py-8"
+>Carrito de compras</h1>
+
+{{#each products}}
+  <div>
+    <p>Producto: {{this.products.title}}</p>
+    <p>Cantidad: {{this.quantity}}</p>
+  </div>
+{{/each}}
