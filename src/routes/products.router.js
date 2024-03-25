@@ -11,7 +11,7 @@ const productManager = new ProductManager();
 // Get que retorna todos los productos o los productos limitados aplicando un query:
 productsRouter.get("/", async (request, response) => {
   try {
-    const { limit = 10, page = 1, sort, query } = request.query;
+    const { limit = 2, page = 1, sort, query } = request.query;
     const products = await productManager.getProducts({
       limit: parseInt(limit),
       page: parseInt(page),

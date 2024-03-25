@@ -4,7 +4,7 @@ import { productModel } from "../models/products.model.js";
 //Función de clase manejadora de los productos:
 export class ProductManager {
   // Función que trae los productos de la base de datos de Mongo Atlas:
-  getProducts = async ({ limit = 10, page = 1, sort, query } = {}) => {
+  getProducts = async ({ limit = 2, page = 1, sort, query } = {}) => {
     try {
       const skip = (page - 1) * limit;
       let queryOptions = {};
@@ -34,12 +34,8 @@ export class ProductManager {
         page,
         hasPreviousPage,
         hasNextPage,
-        previousLink: hasPreviousPage
-          ? `/api/products?limit=${limit}&page=${page - 1}&sort=${sort}&query=${query}`
-          : null,
-        nextLink: hasNextPage
-          ? `/api/products?limit=${limit}&page=${page + 1}&sort=${sort}&query=${query}`
-          : null,
+        previousLink: hasPreviousPage ? `/api/products?limit=${limit}&page=${page - 1}&sort=${sort}&query=${query}` : null,
+        nextLink: hasNextPage ? `/api/products?limit=${limit}&page=${page + 1}&sort=${sort}&query=${query}` : null,
       };
     } catch (error) {
       console.log("Error al intentar ejecutar getProducts", error);

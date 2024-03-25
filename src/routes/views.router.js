@@ -12,12 +12,12 @@ import { CartManager } from "../controllers/cartManager.js";
 const cartManager = new CartManager();
 
 // Ruta GET para renderizar los productos:
-viewsRouter.get("/", async (request, response) => {
-  const { page = 1, limit = 2 } = request.query;
+viewsRouter.get("/products", async (request, response) => {
+  let { page = 1, limit = 2 } = request.query;
   try {
     const products = await productManager.getProducts({
-      page: page,
-      limit: limit,
+      page: parseInt(page),
+      limit: parseInt(limit),
     });
     const productsArray = products.data.map((product) => {
       const { _id, ...rest } = product.toObject();
