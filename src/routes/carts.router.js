@@ -72,7 +72,7 @@ cartsRouter.put("/:cartId", async (request, response) => {
   // Se envía un array de productos en el body de la solicitud:
   const { updatedProducts } = request.body;
   try {
-    const updatedCart = await CartManager.updateCart(cartId, updatedProducts);
+    const updatedCart = await cartManager.updateCart(cartId, updatedProducts);
     response.json(updatedCart);
   } catch (error) {
     console.log("Error al actualizar el cart", error);
