@@ -1,15 +1,15 @@
 // Importación del Router de Express JS:
 import { Router } from "express";
 // Importación del manejador de carts:
-import { CartManager } from "../controllers/cartManager.js";
+import { CartManager } from "../../controllers/cartManager.js";
 // Creación del Router de Carts:
-const cartsRouter = Router();
+const cartsApiRouter = Router();
 // Llamado de la función constructora:
 const cartManager = new CartManager();
 
 // Rutas de carts:
 // Post que crea un nuevo cart:
-cartsRouter.post("/", async (request, response) => {
+cartsApiRouter.post("/", async (request, response) => {
   try {
     const newCart = await cartManager.createCart();
     response.json(newCart);
@@ -19,7 +19,7 @@ cartsRouter.post("/", async (request, response) => {
 });
 
 // Get que lista los productos que pertenezcan al cart por id:
-cartsRouter.get("/:cid", async (request, response) => {
+cartsApiRouter.get("/:cid", async (request, response) => {
   const cartId = request.params.cid;
   try {
     const cart = await cartManager.getCartById(cartId);
@@ -32,7 +32,7 @@ cartsRouter.get("/:cid", async (request, response) => {
 });
 
 // Post que agrega como objeto el producto al array de products del cart seleccionado:
-cartsRouter.post("/:cartId/product/:prodId", async (request, response) => {
+cartsApiRouter.post("/:cartId/product/:prodId", async (request, response) => {
   const { cartId } = request.params;
   const { prodId } = request.params;
   const { quantity } = request.body || 1;
@@ -47,7 +47,7 @@ cartsRouter.post("/:cartId/product/:prodId", async (request, response) => {
 });
 
 // Delete que elimina un producto del cart:
-cartsRouter.delete("/:cartId/product/:prodId", async (request, response) => {
+cartsApiRouter.delete("/:cartId/product/:prodId", async (request, response) => {
   const { cartId } = request.params;
   const { prodId } = request.params;
   try {
@@ -67,7 +67,7 @@ cartsRouter.delete("/:cartId/product/:prodId", async (request, response) => {
 });
 
 // Put que actualiza products en el cart:
-cartsRouter.put("/:cartId", async (request, response) => {
+cartsApiRouter.put("/:cartId", async (request, response) => {
   const { cartId } = request.params;
   // Se envía un array de productos en el body de la solicitud:
   const { updatedProducts } = request.body;
@@ -84,7 +84,7 @@ cartsRouter.put("/:cartId", async (request, response) => {
 });
 
 // Put que actualiza la cantidad de productos en el cart:
-cartsRouter.put("/:cartId/product/:prodId"),
+cartsApiRouter.put("/:cartId/product/:prodId"),
   async (request, response) => {
     const { cartId } = request.params;
     const { prodId } = request.params;
@@ -113,7 +113,7 @@ cartsRouter.put("/:cartId/product/:prodId"),
   };
 
 // Delete que vacía el cart:
-cartsRouter.delete("/:cartId"),
+cartsApiRouter.delete("/:cartId"),
   async (request, response) => {
     const { cartId } = request.params;
     try {
@@ -133,4 +133,4 @@ cartsRouter.delete("/:cartId"),
   };
 
 // Exportación del router de carts para utilizarlo desde app.js:
-export { cartsRouter };
+export { cartsApiRouter };

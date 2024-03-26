@@ -7,12 +7,14 @@ const app = express();
 const PORT = 8080;
 // Importación del motor de plantillas Handlebars (https://www.npmjs.com/package/express-handlebars):
 import { engine } from "express-handlebars";
-// Importación de la vista "home.handlebars":
-import { viewsRouter } from "./routes/views.router.js";
-// Importación del router de productos:
-import { productsRouter } from "./routes/products.router.js";
-// Importación del router de carts:
-import { cartsRouter } from "./routes/carts.router.js";
+// Importación de las rutas del api de productos:
+import { productsApiRouter } from "./routes/api/products.api.router.js";
+// Importación de las rutas del api de carts:
+import { cartsApiRouter } from "./routes/api/carts.api.router.js";
+// Importación de las rutas de products:
+import { productsViewsRouter } from "./routes/products.views.router.js";
+// Importación de las rutas de carts:
+import { cartViewsRouter } from "./routes/cart.views.router.js";
 // Importación de la conexión a la base de datos de Mongo Atlas:
 import "./mongoDB.js";
 
@@ -33,12 +35,14 @@ app.set("view engine", "handlebars");
 app.set("views", "./src/views");
 
 // RUTAS:
-// Endpoint de la ruta de products:
-app.use("/api/products", productsRouter);
-// Endpoint de la ruta de carts:
-app.use("/api/carts", cartsRouter);
-// Endpoint de la ruta "home.handlebars":
-app.use("/", viewsRouter);
+// Endpoint de la ruta de api products:
+app.use("/api/products", productsApiRouter);
+// Endpoint de la ruta de api carts:
+app.use("/api/carts", cartsApiRouter);
+// Endpoint de la ruta de vistas de products:
+app.use("/products", productsViewsRouter);
+// Endpoint de la ruta de vistas del cart:
+app.use("/cart", cartViewsRouter);
 
 // PUERTO:
 // Función que escucha cualquier cambio en el servidor:
