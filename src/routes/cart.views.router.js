@@ -8,7 +8,7 @@ import { CartManager } from "../controllers/cartManager.js";
 const cartManager = new CartManager();
 
 // Ruta GET para renderizar el cart:
-cartViewsRouter.get("/carts/:cartId", async (request, response) => {
+cartViewsRouter.get("/cart/:cartId", async (request, response) => {
   const { cartId } = request.params;
   try {
     const cart = await cartManager.getCartById(cartId);
