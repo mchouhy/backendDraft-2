@@ -19,10 +19,12 @@ const cartSchema = new mongoose.Schema({
 });
 
 // Middleware pre que realiza la población automáticamente - "pre hook":
-cartSchema.pre("findOne", (next) => {
+cartSchema.pre("findOne", function (next) {
   this.populate("products.product", "_id title price");
   next();
 });
 
 // Exportación del model para utilizarlo en cartManager.js. En model se pasa como primer argumento el nombre de la colección y como segundo el "Schema":
-export const cartsModel = mongoose.model("carts", cartSchema);
+const CartModel = mongoose.model("carts", cartSchema);
+
+export default CartModel;

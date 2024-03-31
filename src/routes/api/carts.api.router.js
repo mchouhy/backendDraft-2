@@ -6,6 +6,8 @@ import { CartManager } from "../../controllers/cartManager.js";
 const cartsApiRouter = Router();
 // Llamado de la función constructora:
 const cartManager = new CartManager();
+// Importación del model de carts:
+import CartModel from "../../models/carts.model.js";
 
 // Rutas de carts:
 // Post que crea un nuevo cart:
@@ -22,8 +24,14 @@ cartsApiRouter.post("/", async (request, response) => {
 cartsApiRouter.get("/:cid", async (request, response) => {
   const cartId = request.params.cid;
   try {
-    const cart = await cartManager.getCartById(cartId);
-    response.json(cart.products);
+    const cart = await CartModel.findById(cartId);
+    if (!cart) {
+      console.log("No existe un cart con el id ingresado.", error);
+      return response
+        .status(404)
+        .json({ error: "Cart por id ingresado no existe." });
+    }
+    return response.json(cart.products);
   } catch (error) {
     response.status(500).json({
       error: "Error. No se pudo obtener el producto del cart por id.",

@@ -42,7 +42,7 @@ app.use("/api/carts", cartsApiRouter);
 // Endpoint de la ruta de vistas de products:
 app.use("/products", productsViewsRouter);
 // Endpoint de la ruta de vistas del cart:
-app.use("/cart", cartViewsRouter);
+app.use("/carts", cartViewsRouter);
 
 // PUERTO:
 // Función que escucha cualquier cambio en el servidor:
