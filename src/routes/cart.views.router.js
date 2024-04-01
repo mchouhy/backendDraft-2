@@ -12,9 +12,6 @@ cartViewsRouter.get("/:cid", async (request, response) => {
   const cartId = request.params.cid;
   try {
     const cart = await cartManager.getCartById(cartId);
-    if (!cart) {
-      console.log("No existe un carto con el id ingresado.", error);
-    }
     const cartData = cart.products.map((item) => ({
       product: item.product.toObject(),
       quantity: item.quantity,
