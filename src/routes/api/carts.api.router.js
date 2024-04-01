@@ -40,10 +40,10 @@ cartsApiRouter.get("/:cid", async (request, response) => {
 });
 
 // Post que agrega como objeto el producto al array de products del cart seleccionado:
-cartsApiRouter.post("/:cartId/product/:prodId", async (request, response) => {
-  const { cartId } = request.params;
-  const { prodId } = request.params;
-  const { quantity } = request.body || 1;
+cartsApiRouter.post("/:cid/product/:pid", async (request, response) => {
+  const cartId = request.params.cid;
+  const prodId = request.params.pid;
+  const quantity = request.body.quantity || 1;
   try {
     const updateCart = await cartManager.addProduct(cartId, prodId, quantity);
     response.json(updateCart.products);
@@ -55,9 +55,9 @@ cartsApiRouter.post("/:cartId/product/:prodId", async (request, response) => {
 });
 
 // Delete que elimina un producto del cart:
-cartsApiRouter.delete("/:cartId/product/:prodId", async (request, response) => {
-  const { cartId } = request.params;
-  const { prodId } = request.params;
+cartsApiRouter.delete("/:cid/product/:pid", async (request, response) => {
+  const cartId = request.params.cid;
+  const prodId = request.params.pid;
   try {
     const updateCart = await cartManager.deleteProduct(cartId, prodId);
     response.json({
@@ -75,10 +75,10 @@ cartsApiRouter.delete("/:cartId/product/:prodId", async (request, response) => {
 });
 
 // Put que actualiza products en el cart:
-cartsApiRouter.put("/:cartId", async (request, response) => {
-  const { cartId } = request.params;
+cartsApiRouter.put("/:cid", async (request, response) => {
+  const cartId = request.params.cid;
   // Se envía un array de productos en el body de la solicitud:
-  const { updatedProducts } = request.body;
+  const updatedProducts = request.body;
   try {
     const updatedCart = await cartManager.updateCart(cartId, updatedProducts);
     response.json(updatedCart);
@@ -92,53 +92,48 @@ cartsApiRouter.put("/:cartId", async (request, response) => {
 });
 
 // Put que actualiza la cantidad de productos en el cart:
-cartsApiRouter.put("/:cartId/product/:prodId"),
-  async (request, response) => {
-    const { cartId } = request.params;
-    const { prodId } = request.params;
-    const { newQuantity } = request.body;
-    try {
-      const updatedCart = await cartManager.updateProductQuantity(
-        cartId,
-        prodId,
-        newQuantity
-      );
-      response.json({
-        status: "success",
-        message: "Cantidad del producto actualizada con éxito.",
-        updatedCart,
-      });
-    } catch (error) {
-      console.log(
-        "Error al actualizar la cantidad de productos el cart.",
-        error
-      );
-      res.status(500).json({
-        status: "error",
-        error: "Error interno del servidor.",
-      });
-    }
-  };
+cartsApiRouter.put("/:cid/product/:pid", async (request, response) => {
+  const cartId = request.params.cid;
+  const prodId = request.params.pid;
+  const newQuantity = request.body.quantity;
+  try {
+    const updatedCart = await cartManager.updateProductQuantity(
+      cartId,
+      prodId,
+      newQuantity
+    );
+    response.json({
+      status: "success",
+      message: "Cantidad del producto actualizada con éxito.",
+      updatedCart,
+    });
+  } catch (error) {
+    console.log("Error al actualizar la cantidad de productos el cart.", error);
+    res.status(500).json({
+      status: "error",
+      error: "Error interno del servidor.",
+    });
+  }
+});
 
 // Delete que vacía el cart:
-cartsApiRouter.delete("/:cartId"),
-  async (request, response) => {
-    const { cartId } = request.params;
-    try {
-      const updatedCart = await cartManager.emptyCart(cartId);
-      response.json({
-        status: "success",
-        message: "Se eliminaron con éxito los productos del cart.",
-        updatedCart,
-      });
-    } catch (error) {
-      console.log("Error al intentar vaciar el cart.", error);
-      res.status(500).json({
-        status: "error",
-        error: "Error interno del servidor",
-      });
-    }
-  };
+cartsApiRouter.delete("/:cid", async (request, response) => {
+  const cartId = request.params.cid;
+  try {
+    const updatedCart = await cartManager.emptyCart(cartId);
+    response.json({
+      status: "success",
+      message: "Se eliminaron con éxito los productos del cart.",
+      updatedCart,
+    });
+  } catch (error) {
+    console.log("Error al intentar vaciar el cart.", error);
+    res.status(500).json({
+      status: "error",
+      error: "Error interno del servidor",
+    });
+  }
+});
 
 // Exportación del router de carts para utilizarlo desde app.js:
 export { cartsApiRouter };

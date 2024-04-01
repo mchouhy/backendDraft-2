@@ -42,10 +42,5 @@ const productSchema = new mongoose.Schema({
   },
 });
 
-productSchema.pre("findOne", function (next) {
-  this.populate(""); // Falta poner dentro de la función la colección a la cual se hace el populate.
-  next();
-});
-
 // Exportación del model para utilizarlo en productManager.js. En model se pasa como primer argumento el nombre de la colección y como segundo el "Schema":
-export const productModel = mongoose.model("products", productSchema);
+export const productModel = mongoose.model("Product", productSchema);

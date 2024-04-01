@@ -16,7 +16,7 @@ cartViewsRouter.get("/:cid", async (request, response) => {
       product: item.product.toObject(),
       quantity: item.quantity,
     }));
-    response.render("carts", { products: cartData });
+    response.render("carts", { cartproducts: cartData });
   } catch (error) {
     console.log("Error en el servidor al buscar el cart por id", error);
     response

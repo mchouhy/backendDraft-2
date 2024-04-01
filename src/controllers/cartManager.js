@@ -118,7 +118,7 @@ export class CartManager {
         );
       }
       const index = cart.products.findIndex(
-        (item) => item.product._id.toString() === prodId
+        (item) => item.product._id.toString() !== prodId
       );
       if (index !== -1) {
         cart.products[index].quantity = newQuantity;
