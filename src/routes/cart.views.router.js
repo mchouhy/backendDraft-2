@@ -7,7 +7,7 @@ import { CartManager } from "../controllers/cartManager.js";
 // Llamado de la función de cartManager:
 const cartManager = new CartManager();
 
-// Ruta GET para renderizar el cart:
+// Ruta GET para renderizar el cart por id:
 cartViewsRouter.get("/:cid", async (request, response) => {
   const cartId = request.params.cid;
   try {
