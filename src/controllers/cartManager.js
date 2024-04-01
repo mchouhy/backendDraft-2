@@ -1,12 +1,12 @@
 // Importación del model de carts:
-import { cartsModel } from "../models/carts.model.js";
+import { cartModel } from "../models/carts.model.js";
 
 //Función de clase constructora que recibe la ruta a trabajar desde el momento de generar la instancia.
 export class CartManager {
   createCart = async () => {
     try {
       // Variable que aloja el nuevo carrito:
-      const newCart = new cartsModel({ products: [] });
+      const newCart = new cartModel({ products: [] });
       // Se guarda el cart en la base de datos:
       await newCart.save();
       // Se retorna el nuevo cart:
@@ -20,7 +20,7 @@ export class CartManager {
   getCartById = async (cartId) => {
     try {
       // Validación de si existe un cart con el id ingresado:
-      const cart = await cartsModel.findById(cartId);
+      const cart = await cartModel.findById(cartId);
       // Error en caso de que no exista.
       if (!cart) {
         throw new Error(
@@ -63,7 +63,7 @@ export class CartManager {
   deleteProduct = async (cartId, prodId) => {
     try {
       // Se trae el cart de la base de datos por id:
-      const cart = await cartsModel.findById(cartId);
+      const cart = await cartModel.findById(cartId);
       // Validación para el caso de que no exista el cart ingresadoo por id:
       if (!cart) {
         throw new Error(
@@ -88,7 +88,7 @@ export class CartManager {
 
   updateCart = async (cartId, updatedProducts) => {
     try {
-      const cart = await cartsModel.findById(cartId);
+      const cart = await cartModel.findById(cartId);
 
       if (!cart) {
         throw new Error(
@@ -110,7 +110,7 @@ export class CartManager {
 
   updateProductQuantity = async (cartId, prodId, newQuantity) => {
     try {
-      const cart = await cartsModel.findById(cartId);
+      const cart = await cartModel.findById(cartId);
 
       if (!cart) {
         throw new Error(
@@ -139,7 +139,7 @@ export class CartManager {
 
   emptyCart = async (cartId) => {
     try {
-      const cart = await cartsModel.findByIdAndUpdate(
+      const cart = await cartModel.findByIdAndUpdate(
         cartId,
         { products: [] },
         { new: true }

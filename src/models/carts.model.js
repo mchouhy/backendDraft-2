@@ -25,6 +25,4 @@ cartSchema.pre("findOne", function (next) {
 });
 
 // Exportación del model para utilizarlo en cartManager.js. En model se pasa como primer argumento el nombre de la colección y como segundo el "Schema":
-const CartModel = mongoose.model("carts", cartSchema);
-
-export default CartModel;
+export const cartModel = mongoose.model("carts", cartSchema);

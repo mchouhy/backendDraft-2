@@ -7,7 +7,7 @@ const cartsApiRouter = Router();
 // Llamado de la función constructora:
 const cartManager = new CartManager();
 // Importación del model de carts:
-import CartModel from "../../models/carts.model.js";
+import { cartModel } from "../../models/carts.model.js";
 
 // Rutas de carts:
 // Post que crea un nuevo cart:
@@ -24,7 +24,7 @@ cartsApiRouter.post("/", async (request, response) => {
 cartsApiRouter.get("/:cid", async (request, response) => {
   const cartId = request.params.cid;
   try {
-    const cart = await CartModel.findById(cartId);
+    const cart = await cartModel.findById(cartId);
     if (!cart) {
       console.log("No existe un cart con el id ingresado.", error);
       return response
@@ -104,7 +104,7 @@ cartsApiRouter.put("/:cartId/product/:prodId"),
         newQuantity
       );
       response.json({
-        status: "succes",
+        status: "success",
         message: "Cantidad del producto actualizada con éxito.",
         updatedCart,
       });
@@ -127,7 +127,7 @@ cartsApiRouter.delete("/:cartId"),
     try {
       const updatedCart = await cartManager.emptyCart(cartId);
       response.json({
-        status: "succes",
+        status: "success",
         message: "Se eliminaron con éxito los productos del cart.",
         updatedCart,
       });
